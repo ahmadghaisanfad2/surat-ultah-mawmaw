@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="id" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Untukmu, Cintaku 💕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-dark: #0a0e1a;
+  --bg-card: rgba(255,255,255,0.04);
+  --gold: #d4a574;
+  --gold-light: #e8c9a0;
+  --rose: #c9837a;
+  --rose-light: #e8a9a0;
+  --text: #e8ddd3;
+  --text-dim: #9a8e82;
+  --white: #fff5eb;
+  --arabic-font: 'Amiri', serif;
+  --script-font: 'Dancing Script', cursive;
+  --body-font: 'Poppins', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--body-font);
+  background: var(--bg-dark);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════════
+   PARTICLES BACKGROUND
+   ═══════════════════════════════════════════════ */
+#particles-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════
+   PAGES / SECTIONS
+   ═══════════════════════════════════════════════ */
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px 24px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.page.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE 1: SALAM PEMBUKA
+   ═══════════════════════════════════════════════ */
+#page-salam .bismillah {
+  font-family: var(--arabic-font);
+  font-size: clamp(24px, 6vw, 40px);
+  color: var(--gold);
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeUp 2s ease 0.5s forwards;
+}
+#page-salam .salam-text {
+  font-size: clamp(14px, 3.5vw, 18px);
+  color: var(--text-dim);
+  margin-top: 24px;
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeUp 2s ease 2s forwards;
+}
+#page-salam .to-name {
+  font-family: var(--script-font);
+  font-size: clamp(28px, 7vw, 48px);
+  color: var(--gold-light);
+  margin-top: 32px;
+  opacity: 0;
+  animation: fadeUp 2s ease 3.5s forwards;
+}
+#page-salam .btn-buka {
+  margin-top: 48px;
+  padding: 14px 40px;
+  background: linear-gradient(135deg, var(--gold), var(--rose));
+  color: var(--bg-dark);
+  border: none;
+  border-radius: 50px;
+  font-family: var(--body-font);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  animation: fadeUp 2s ease 5s forwards;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+#page-salam .btn-buka::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+  animation: shimmer 3s infinite;
+}
+#page-salam .btn-buka:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(212,165,116,0.3);
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE 2: AMPLOP
+   ═══════════════════════════════════════════════ */
+.envelope-wrapper {
+  perspective: 1000px;
+  cursor: pointer;
+}
+.envelope {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  margin: 0 auto;
+}
+.envelope .flap {
+  position: absolute;
+  top: 0; left: 0;
+  width: 0; height: 0;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-top: 100px solid var(--gold);
+  transform-origin: top;
+  transition: transform 0.8s ease;
+  z-index: 2;
+}
+.envelope.opened .flap {
+  transform: rotateX(180deg);
+}
+.envelope .body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 280px;
+  height: 140px;
+  background: linear-gradient(135deg, #c9a96e, #b8956a);
+  border-radius: 0 0 8px 8px;
+}
+.envelope .body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 0; height: 0;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-top: 80px solid rgba(0,0,0,0.08);
+}
+.envelope .letter-peek {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 120px;
+  background: var(--white);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 1s ease 0.5s;
+  z-index: 1;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.envelope.opened .letter-peek {
+  transform: translateX(-50%) translateY(-130px);
+}
+.envelope .letter-peek .heart-icon {
+  font-size: 40px;
+  animation: heartbeat 1.5s infinite;
+}
+
+.envelope-label {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-top: 32px;
+  opacity: 0.7;
+}
+.envelope-hint {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 12px;
+  opacity: 0;
+  animation: fadeUp 1s ease 2s forwards;
+}
+.btn-lanjut {
+  margin-top: 32px;
+  padding: 12px 32px;
+  background: transparent;
+  color: var(--gold);
+  border: 1.5px solid var(--gold);
+  border-radius: 50px;
+  font-family: var(--body-font);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: none;
+}
+.btn-lanjut.show {
+  display: inline-block;
+  animation: fadeUp 0.8s ease;
+}
+.btn-lanjut:hover {
+  background: var(--gold);
+  color: var(--bg-dark);
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE 3: SURAT CINTA (TYPEWRITER)
+   ═══════════════════════════════════════════════ */
+#page-surat {
+  align-items: flex-start;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 60px 28px;
+}
+.surat-header {
+  font-family: var(--script-font);
+  font-size: clamp(22px, 5vw, 32px);
+  color: var(--gold-light);
+  margin-bottom: 32px;
+  text-align: center;
+  width: 100%;
+}
+.surat-tanggal {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 24px;
+  text-align: right;
+  width: 100%;
+}
+.surat-body {
+  font-size: clamp(14px, 3.5vw, 16px);
+  line-height: 2;
+  color: var(--text);
+  font-weight: 300;
+  min-height: 300px;
+}
+.surat-body .cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--gold);
+  margin-left: 2px;
+  animation: blink 0.8s infinite;
+  vertical-align: text-bottom;
+}
+.surat-body .highlight {
+  color: var(--gold-light);
+  font-weight: 400;
+}
+.surat-body .arabic-inline {
+  font-family: var(--arabic-font);
+  font-size: 1.15em;
+  color: var(--gold);
+  direction: rtl;
+  display: block;
+  margin: 16px 0;
+  text-align: center;
+  line-height: 2;
+}
+.surat-sign {
+  font-family: var(--script-font);
+  font-size: clamp(18px, 4vw, 24px);
+  color: var(--gold);
+  margin-top: 40px;
+  text-align: right;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.surat-sign.show { opacity: 1; }
+
+/* ═══════════════════════════════════════════════
+   PAGE 4: GALERI FOTO
+   ═══════════════════════════════════════════════ */
+#page-gallery {
+  padding: 60px 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.gallery-title {
+  font-family: var(--script-font);
+  font-size: clamp(24px, 6vw, 36px);
+  color: var(--gold-light);
+  margin-bottom: 16px;
+}
+.gallery-subtitle {
+  font-size: clamp(13px, 3vw, 15px);
+  color: var(--text-dim);
+  margin-bottom: 48px;
+  font-weight: 300;
+}
+.gallery-featured {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 48px;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 1s ease;
+}
+.gallery-featured.show {
+  opacity: 1;
+  transform: scale(1);
+}
+.gallery-featured img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+.gallery-featured:hover img {
+  transform: scale(1.03);
+}
+.gallery-featured .featured-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 32px 32px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.85));
+}
+.gallery-featured .featured-quote {
+  font-family: var(--script-font);
+  font-size: clamp(18px, 4vw, 28px);
+  color: var(--white);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.gallery-featured .featured-desc {
+  font-size: 13px;
+  color: var(--gold-light);
+  font-weight: 300;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+.gallery-item {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+.gallery-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+.gallery-item .item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 16px 16px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.gallery-item:hover .item-overlay {
+  opacity: 1;
+}
+.gallery-item .item-icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 20px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.gallery-item .item-caption {
+  font-size: clamp(12px, 2.5vw, 14px);
+  color: var(--white);
+  font-weight: 300;
+}
+.gallery-item:nth-child(1) { aspect-ratio: 3/4; }
+.gallery-item:nth-child(2) { aspect-ratio: 4/3; }
+.gallery-item:nth-child(3) { aspect-ratio: 4/3; }
+.gallery-item:nth-child(4) { aspect-ratio: 3/4; }
+.gallery-counter {
+  text-align: center;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 1s ease 2s forwards;
+}
+.gallery-counter .counter-number {
+  font-family: var(--script-font);
+  font-size: clamp(36px, 8vw, 56px);
+  color: var(--gold);
+  line-height: 1;
+}
+.gallery-counter .counter-label {
+  font-size: clamp(12px, 3vw, 14px);
+  color: var(--text-dim);
+  margin-top: 8px;
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════════════════════
+   LIGHTBOX
+   ═══════════════════════════════════════════════ */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.97);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 92%;
+  max-height: 82vh;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+.lightbox-caption {
+  color: var(--text);
+  font-family: var(--script-font);
+  font-size: clamp(16px, 4vw, 22px);
+  margin-top: 24px;
+  text-align: center;
+  max-width: 80%;
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  font-size: 32px;
+  color: var(--gold);
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: transform 0.3s;
+}
+.lightbox-close:hover { transform: scale(1.2); }
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 48px;
+  color: var(--gold);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 20px;
+  transition: opacity 0.3s;
+}
+.lightbox-nav:hover { opacity: 0.7; }
+.lightbox-prev { left: 10px; }
+.lightbox-next { right: 10px; }
+
+/* ═══════════════════════════════════════════════
+   PAGE 5: AYAT & DOA
+   ═══════════════════════════════════════════════ */
+#page-doa {
+  padding: 60px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.doa-title {
+  font-family: var(--script-font);
+  font-size: clamp(24px, 6vw, 36px);
+  color: var(--gold-light);
+  margin-bottom: 48px;
+}
+.ayat-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(212,165,116,0.15);
+  border-radius: 16px;
+  padding: 32px 24px;
+  margin-bottom: 32px;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+.ayat-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ayat-arabic {
+  font-family: var(--arabic-font);
+  font-size: clamp(20px, 5vw, 28px);
+  color: var(--gold);
+  line-height: 2.2;
+  direction: rtl;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.ayat-ref {
+  font-size: 12px;
+  color: var(--rose-light);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.ayat-terjemah {
+  font-size: clamp(13px, 3vw, 15px);
+  color: var(--text-dim);
+  line-height: 1.8;
+  font-style: italic;
+  text-align: center;
+}
+.doa-personal {
+  margin-top: 48px;
+  padding: 32px 24px;
+  border-top: 1px solid rgba(212,165,116,0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease;
+}
+.doa-personal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.doa-personal .doa-arabic {
+  font-family: var(--arabic-font);
+  font-size: clamp(18px, 4.5vw, 24px);
+  color: var(--gold);
+  line-height: 2.2;
+  direction: rtl;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.doa-personal .doa-indo {
+  font-size: clamp(13px, 3vw, 15px);
+  color: var(--text);
+  line-height: 2;
+  font-weight: 300;
+  text-align: center;
+}
+.doa-btn {
+  margin-top: 40px;
+  padding: 12px 32px;
+  background: transparent;
+  color: var(--gold);
+  border: 1.5px solid var(--gold);
+  border-radius: 50px;
+  font-family: var(--body-font);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  opacity: 0;
+  animation: fadeUp 1s ease 4s forwards;
+}
+.doa-btn:hover {
+  background: var(--gold);
+  color: var(--bg-dark);
+}
+
+/* ═══════════════════════════════════════════════
+   PAGE 6: PENUTUP
+   ═══════════════════════════════════════════════ */
+#page-penutup {
+  min-height: 100vh;
+}
+.penutup-quote {
+  font-family: var(--script-font);
+  font-size: clamp(24px, 6vw, 40px);
+  color: var(--gold-light);
+  line-height: 1.6;
+  max-width: 500px;
+  opacity: 0;
+  animation: fadeUp 2s ease 0.5s forwards;
+}
+.penutup-terimakasih {
+  font-size: clamp(14px, 3.5vw, 18px);
+  color: var(--text-dim);
+  margin-top: 24px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp 2s ease 2s forwards;
+  line-height: 1.8;
+}
+.penutup-salam {
+  font-size: clamp(13px, 3vw, 16px);
+  color: var(--text-dim);
+  margin-top: 40px;
+  opacity: 0;
+  animation: fadeUp 2s ease 3.5s forwards;
+}
+.penutup-doa-akhir {
+  font-family: var(--arabic-font);
+  font-size: clamp(16px, 4vw, 22px);
+  color: var(--gold);
+  margin-top: 32px;
+  direction: rtl;
+  opacity: 0;
+  animation: fadeUp 2s ease 4.5s forwards;
+  line-height: 2;
+}
+.penutup-nama {
+  font-family: var(--script-font);
+  font-size: clamp(20px, 5vw, 28px);
+  color: var(--gold-light);
+  margin-top: 32px;
+  opacity: 0;
+  animation: fadeUp 2s ease 5.5s forwards;
+}
+
+/* ═══════════════════════════════════════════════
+   FLOATING HEARTS BURST (on page 6)
+   ═══════════════════════════════════════════════ */
+.floating-hearts {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+.floating-hearts .fh {
+  position: absolute;
+  bottom: -50px;
+  font-size: 24px;
+  animation: floatUp 6s ease-in forwards;
+  opacity: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   MUSIC CONTROL
+   ═══════════════════════════════════════════════ */
+.music-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(212,165,116,0.2);
+  color: var(--gold);
+  font-size: 18px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  opacity: 0;
+}
+.music-btn.show { opacity: 1; }
+.music-btn:hover { background: rgba(212,165,116,0.15); }
+.music-btn .bars {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+  height: 16px;
+}
+.music-btn .bars span {
+  width: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: height 0.3s;
+}
+.music-btn.playing .bars span:nth-child(1) { height: 8px; animation: bar1 0.8s infinite; }
+.music-btn.playing .bars span:nth-child(2) { height: 14px; animation: bar2 0.6s infinite; }
+.music-btn.playing .bars span:nth-child(3) { height: 10px; animation: bar3 0.7s infinite; }
+.music-btn:not(.playing) .bars span { height: 4px; }
+
+/* ═══════════════════════════════════════════════
+   DIVIDER
+   ═══════════════════════════════════════════════ */
+.section-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 16px auto;
+  opacity: 0.3;
+}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(100%) rotate(25deg); }
+}
+@keyframes floatUp {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+  100% { opacity: 0; transform: translateY(-110vh) rotate(45deg); }
+}
+@keyframes bar1 { 0%,100%{height:8px} 50%{height:3px} }
+@keyframes bar2 { 0%,100%{height:14px} 50%{height:6px} }
+@keyframes bar3 { 0%,100%{height:10px} 50%{height:4px} }
+
+/* ═══════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: rgba(212,165,116,0.3); border-radius: 4px; }
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .page { padding: 32px 20px; }
+  #page-surat { padding: 40px 20px; }
+  .envelope { width: 240px; height: 155px; }
+  .envelope .flap { border-left: 120px solid transparent; border-right: 120px solid transparent; border-top: 85px solid var(--gold); }
+  .envelope .body { width: 240px; height: 120px; }
+  .envelope .body::before { border-left: 120px solid transparent; border-right: 120px solid transparent; border-top: 65px solid rgba(0,0,0,0.08); }
+  .envelope .letter-peek { width: 190px; height: 100px; }
+  .gallery-grid { grid-template-columns: 1fr; gap: 16px; }
+  .gallery-item:nth-child(1),
+  .gallery-item:nth-child(2),
+  .gallery-item:nth-child(3),
+  .gallery-item:nth-child(4) { aspect-ratio: 4/3; }
+  .lightbox-nav { font-size: 36px; padding: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PARTICLES -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- MUSIC -->
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+  <div class="bars"><span></span><span></span><span></span></div>
+</button>
+<audio id="bgMusic" loop preload="auto">
+  <source src="https://cdn.pixabay.com/audio/2024/11/28/audio_2f3fa20b16.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 1: SALAM PEMBUKA
+     ═══════════════════════════════════════════════ -->
+<div class="page visible" id="page-salam">
+  <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+  <div class="salam-text">Assalamu'alaikum warahmatullahi wabarakatuh</div>
+  <div class="to-name">Untuk Istri Tercinta</div>
+  <div class="section-divider" style="margin-top: 32px;"></div>
+  <p style="font-size: 13px; color: var(--text-dim); margin-top: 24px; opacity: 0; animation: fadeUp 2s ease 4s forwards; font-weight: 300;">
+    Ada sesuatu yang ingin aku sampaikan untukmu...
+  </p>
+  <button class="btn-buka" onclick="goToPage('page-amplop')">Dibuka Ayongkuu ✉️</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 2: AMPLOP
+     ═══════════════════════════════════════════════ -->
+<div class="page" id="page-amplop">
+  <div class="envelope-wrapper" onclick="openEnvelope()">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="body"></div>
+      <div class="letter-peek">
+        <div class="heart-icon">💌</div>
+      </div>
+    </div>
+  </div>
+  <div class="envelope-label">Untukmu, di hari istimewamu</div>
+  <div class="envelope-hint">Ketuk amplopnya...</div>
+  <button class="btn-lanjut" id="btnLanjut" onclick="goToPage('page-surat')">Baca Suratku →</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 3: SURAT CINTA
+     ═══════════════════════════════════════════════ -->
+<div class="page" id="page-surat">
+  <div class="surat-header">Selamat Ultah ke-20</div>
+  <div class="surat-tanggal" id="suratTanggal"></div>
+  <div class="surat-body" id="suratBody"></div>
+  <div class="surat-sign" id="suratSign">— Fadfad ❤️</div>
+  <button class="btn-lanjut" id="btnLanjut2" onclick="goToPage('page-gallery')" style="margin-top: 40px; align-self: center;">Lihat Momen Kita →</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 4: GALERI FOTO
+     ═══════════════════════════════════════════════ -->
+<div class="page" id="page-gallery">
+  <div class="gallery-title">Momen Kita ✨</div>
+  <div class="gallery-subtitle">Setiap foto adalah kenangan yang tak ternilai harganya</div>
+
+  <div class="gallery-featured" id="galleryFeatured" onclick="openLightbox(0)">
+    <img src="photos/LUT_7386 Large.jpeg" alt="Momen bersama" loading="lazy">
+    <div class="featured-overlay">
+      <div class="featured-quote">"Dalam senyummu, aku menemukan rumah"</div>
+      <div class="featured-desc">Momen terindah bersamamu</div>
+    </div>
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid"></div>
+
+  <div class="gallery-counter">
+    <div class="counter-number">∞</div>
+    <div class="counter-label">Alasan aku mencintaimu</div>
+  </div>
+
+  <button class="btn-lanjut show" onclick="goToPage('page-doa')">Doa Untukmu →</button>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">‹</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+  <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">›</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 5: AYAT & DOA
+     ═══════════════════════════════════════════════ -->
+<div class="page" id="page-doa">
+  <div class="doa-title">Dari-Nya, Untuk Kita 🤲</div>
+
+  <div class="ayat-card" id="ayat1">
+    <div class="ayat-arabic">
+      وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+    </div>
+    <div class="ayat-ref">QS. AR-RUM : 21</div>
+    <div class="ayat-terjemah">
+      "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
+    </div>
+  </div>
+
+  <div class="ayat-card" id="ayat2">
+    <div class="ayat-arabic">
+      هُنَّ لِبَاسٌ لَّكُمْ وَأَنتُمْ لِبَاسٌ لَّهُنَّ
+    </div>
+    <div class="ayat-ref">QS. AL-BAQARAH : 187</div>
+    <div class="ayat-terjemah">
+      "Mereka adalah pakaian bagimu, dan kamu adalah pakaian bagi mereka."
+    </div>
+  </div>
+
+  <div class="ayat-card" id="ayat3">
+    <div class="ayat-arabic">
+      وَعَاشِرُوهُنَّ بِالْمَعْرُوفِ
+    </div>
+    <div class="ayat-ref">QS. AN-NISA : 19</div>
+    <div class="ayat-terjemah">
+      "Dan pergaulilah mereka dengan cara yang baik."
+    </div>
+  </div>
+
+  <div class="doa-personal" id="doaPersonal">
+    <div class="section-divider" style="margin-bottom: 32px;"></div>
+    <p style="font-family: var(--script-font); font-size: clamp(18px, 4vw, 24px); color: var(--gold-light); margin-bottom: 24px;">Doaku Untukmu</p>
+    <div class="doa-arabic">
+      اَللّٰهُمَّ بَارِكْ لِي فِيْ زَوْجَتِيْ وَاحْفَظْهَا مِنْ كُلِّ سُوْءٍ، وَاجْعَلْهَا قُرَّةَ عَيْنٍ لِيْ وَاجْعَلْنِيْ قُرَّةَ عَيْنٍ لَهَا
+    </div>
+    <div class="doa-indo">
+      Ya Allah, berkahilah istriku, jagalah dia dari segala keburukan. Jadikan dia penyejuk mataku, dan jadikan aku penyejuk matanya.
+    </div>
+  </div>
+
+  <button class="doa-btn" onclick="goToPage('page-penutup')">Satu lagi untukmu... →</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     PAGE 6: PENUTUP
+     ═══════════════════════════════════════════════ -->
+<div class="page" id="page-penutup">
+  <div class="penutup-quote">
+    "Terima kasih sudah menjadi rumahku,<br>
+    tempat pulang yang paling aku rindukan."
+  </div>
+  <div class="penutup-terimakasih">
+    Di hari spesialmu ini, aku ingin kamu tahu...<br>
+    bahwa <span style="color: var(--gold-light);">setiap hari bersamamu adalah hadiah terbaik</span> dalam hidupku.
+  </div>
+  <div class="penutup-salam">
+    Barakallahu laki wa baraka 'alaik<br>
+    <span style="font-size: 12px; opacity: 0.6;">Semoga Allah memberkati umurmu dan mencurahkan keberkahan atasmu</span>
+  </div>
+  <div class="penutup-doa-akhir">
+    وَالسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ
+  </div>
+  <div class="penutup-nama">Your Captain, Fadfad ❤️</div>
+</div>
+
+<!-- Floating hearts container -->
+<div class="floating-hearts" id="floatingHearts"></div>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════ -->
+<script>
+// ──── CONFIG (edit bagian ini) ────
+const NAMA_ISTRI = "Mawmaw - Cii Gemecin-gemecin Akuw";
+const NAMA_SUAMI = "Captain Fadfad";
+
+// Gallery foto
+const GALLERY = [
+  { src: "photos/LUT_7386 Large.jpeg", icon: "💕", caption: "Dalam dekapanmu, aku menemukan ketenangan" },
+  { src: "photos/LUT_7299 Large.jpeg", icon: "👰", caption: "Senyummu adalah cahaya hidupku" },
+  { src: "photos/LUT_7324 Large.jpeg", icon: "🌿", caption: "Bersamamu, setiap momen adalah surga" },
+  { src: "photos/LUT_7306 Large.jpeg", icon: "✨", caption: "Kamu adalah doa terbaikku" },
+  { src: "photos/LUT_7641 Large.jpeg", icon: "🤲", caption: "Semoga kita selalu dalam lindungan-Nya" },
+  { src: "photos/LUT_6474 Large.jpeg", icon: "💍", caption: "Cinta kita, hingga Jannah" }
+];
+
+// Surat cinta (akan muncul perlahan)
+const SURAT = `
+<span class="highlight">${NAMA_ISTRI}ku tersayang,</span><br><br>
+
+Alhamdulillah, Allah memberikan kita kesempatan untuk merayakan hari ini bersama. Di hari kelahiranmu ini, aku ingin menyampaikan sesuatu yang mungkin tidak pernah cukup jika hanya diucapkan.<br><br>
+
+<span class="arabic-inline">أُحِبُّكِ فِي اللهِ</span>
+
+Love ayonk because of Allah. karena Dia menakdirkan kita untuk saling menemukan, saling melengkapi, dan saling menguatkan.<br><br>
+
+<span class="highlight">Terima kasih</span> sudah menjadi istri yang sabar, yang selalu ada di saat aku membutuhkanmu, yang mendoakanku dalam diam-diammu yang bahkan tidak pernah aku tahu.<br><br>
+
+Maaf jika aku belum menjadi suami yang sempurna. Tapi, <span class="highlight">setiap hari aku berusaha menjadi lebih baik untukmu.</span><br><br>
+
+Semoga Allah selalu menjaga senyummu, meringankan langkahmu, dan membahagiakan hatimu — di dunia dan di akhirat. Aamiin.<br><br>
+
+<span class="arabic-inline">بَارَكَ اللهُ لِيْ فِيْكِ وَبَارَكَ عَلَيْكِ</span>
+
+Semoga Allah memberikanku keberkahan melalui dirimu, dan memberkahi atasmu.
+`;
+
+// ──── INIT ────
+let currentLightboxIndex = 0;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const now = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('suratTanggal').textContent = now.toLocaleDateString('id-ID', options);
+
+  buildGallery();
+  initParticles();
+  document.querySelector('.to-name').textContent = `Untuk ${NAMA_ISTRI}`;
+});
+
+// ──── NAVIGATION ────
+function goToPage(pageId) {
+  const target = document.getElementById(pageId);
+  if (!target) return;
+
+  const music = document.getElementById('bgMusic');
+  if (music.paused) {
+    music.volume = 0.3;
+    music.play().then(() => {
+      document.getElementById('musicBtn').classList.add('show', 'playing');
+    }).catch(() => {});
+  }
+
+  target.scrollIntoView({ behavior: 'smooth' });
+
+  setTimeout(() => {
+    target.classList.add('visible');
+    if (pageId === 'page-surat') startTypewriter();
+    if (pageId === 'page-gallery') animateGallery();
+    if (pageId === 'page-doa') animateDoa();
+    if (pageId === 'page-penutup') startFloatingHearts();
+  }, 400);
+}
+
+// ──── ENVELOPE ────
+function openEnvelope() {
+  const env = document.getElementById('envelope');
+  if (env.classList.contains('opened')) return;
+  env.classList.add('opened');
+  setTimeout(() => {
+    document.getElementById('btnLanjut').classList.add('show');
+  }, 1500);
+}
+
+// ──── TYPEWRITER ────
+function startTypewriter() {
+  const body = document.getElementById('suratBody');
+  const btn = document.getElementById('btnLanjut2');
+  const sign = document.getElementById('suratSign');
+  if (body.dataset.done) return;
+  body.dataset.done = '1';
+
+  body.innerHTML = '<span class="cursor"></span>';
+  let i = 0;
+  const text = SURAT;
+
+  function type() {
+    if (i < text.length) {
+      if (text[i] === '<') {
+        const closeIndex = text.indexOf('>', i);
+        if (closeIndex !== -1) {
+          const tag = text.substring(i, closeIndex + 1);
+          body.innerHTML = body.innerHTML.replace('<span class="cursor"></span>', tag + '<span class="cursor"></span>');
+          i = closeIndex + 1;
+          type();
+          return;
+        }
+      }
+      if (text[i] === '&') {
+        const endIndex = text.indexOf(';', i);
+        if (endIndex !== -1) {
+          const entity = text.substring(i, endIndex + 1);
+          body.innerHTML = body.innerHTML.replace('<span class="cursor"></span>', entity + '<span class="cursor"></span>');
+          i = endIndex + 1;
+          setTimeout(type, 40);
+          return;
+        }
+      }
+
+      const char = text[i];
+      body.innerHTML = body.innerHTML.replace('<span class="cursor"></span>', char + '<span class="cursor"></span>');
+      i++;
+
+      body.scrollTop = body.scrollHeight;
+
+      let delay = 30;
+      if (char === '.' || char === '!' || char === '?') delay = 400;
+      else if (char === ',') delay = 200;
+      else if (char === '\n') delay = 100;
+      else if (char === ' ') delay = 50;
+
+      setTimeout(type, delay);
+    } else {
+      body.innerHTML = body.innerHTML.replace('<span class="cursor"></span>', '');
+      sign.classList.add('show');
+      btn.classList.add('show');
+    }
+  }
+
+  setTimeout(type, 1000);
+}
+
+// ──── GALLERY ────
+function buildGallery() {
+  const container = document.getElementById('galleryGrid');
+  GALLERY.slice(1).forEach((item, idx) => {
+    const el = document.createElement('div');
+    el.className = 'gallery-item';
+    el.dataset.index = idx + 1;
+    el.innerHTML = `
+      <img src="${item.src}" alt="${item.caption}" loading="lazy">
+      <div class="item-icon">${item.icon}</div>
+      <div class="item-overlay">
+        <div class="item-caption">${item.caption}</div>
+      </div>
+    `;
+    el.addEventListener('click', () => openLightbox(idx + 1));
+    container.appendChild(el);
+  });
+}
+
+function animateGallery() {
+  const featured = document.getElementById('galleryFeatured');
+  if (featured) setTimeout(() => featured.classList.add('show'), 200);
+  const items = document.querySelectorAll('.gallery-item');
+  items.forEach((item, i) => {
+    setTimeout(() => item.classList.add('show'), 600 + (i * 200));
+  });
+}
+
+// ──── LIGHTBOX ────
+function openLightbox(index) {
+  currentLightboxIndex = index;
+  const item = GALLERY[index];
+  document.getElementById('lightboxImg').src = item.src;
+  document.getElementById('lightboxCaption').textContent = item.caption;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function navigateLightbox(direction) {
+  currentLightboxIndex = (currentLightboxIndex + direction + GALLERY.length) % GALLERY.length;
+  const item = GALLERY[currentLightboxIndex];
+  document.getElementById('lightboxImg').src = item.src;
+  document.getElementById('lightboxCaption').textContent = item.caption;
+}
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+});
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navigateLightbox(-1);
+  if (e.key === 'ArrowRight') navigateLightbox(1);
+});
+
+// ──── DOA ANIMATION ────
+function animateDoa() {
+  const cards = document.querySelectorAll('.ayat-card, .doa-personal');
+  cards.forEach((card, i) => {
+    setTimeout(() => card.classList.add('show'), i * 800);
+  });
+}
+
+// ──── FLOATING HEARTS ────
+function startFloatingHearts() {
+  const container = document.getElementById('floatingHearts');
+  const hearts = ['❤️', '💕', '💖', '💗', '🌹', '✨', '🤍', '💛'];
+  function spawnHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'fh';
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.fontSize = (16 + Math.random() * 20) + 'px';
+    heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+    container.appendChild(heart);
+    setTimeout(() => heart.remove(), 8000);
+  }
+  for (let i = 0; i < 15; i++) {
+    setTimeout(spawnHeart, i * 200);
+  }
+  setInterval(spawnHeart, 1500);
+}
+
+// ──── MUSIC ────
+function toggleMusic() {
+  const music = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  if (music.paused) {
+    music.play();
+    btn.classList.add('playing');
+  } else {
+    music.pause();
+    btn.classList.remove('playing');
+  }
+}
+
+// ──── PARTICLES ────
+function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 2 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.4 + 0.1;
+      this.color = Math.random() > 0.5 ? '212,165,116' : '201,131,122';
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+      ctx.fill();
+    }
+  }
+
+  const count = Math.min(80, Math.floor(window.innerWidth * 0.05));
+  for (let i = 0; i < count; i++) particles.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// ──── SCROLL REVEAL ────
+const pageObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      const id = entry.target.id;
+      if (id === 'page-surat' && !entry.target.dataset.typed) {
+        entry.target.dataset.typed = '1';
+        startTypewriter();
+      }
+      if (id === 'page-gallery' && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = '1';
+        animateGallery();
+      }
+      if (id === 'page-doa' && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = '1';
+        animateDoa();
+      }
+      if (id === 'page-penutup' && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = '1';
+        startFloatingHearts();
+      }
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.page').forEach(page => pageObserver.observe(page));
+</script>
+</body>
+</html>
